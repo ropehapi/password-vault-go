@@ -1,10 +1,12 @@
-POST http://127.0.0.1:8080/ HTTP/2
+POST http://127.0.0.1:8080/account HTTP/2
 Content-Type: application/json
 
 {
-  "name": "github",
-  "login": "ropehapi@gmail.com",
-  "password": "Pedroka0123"
+  "name": "pornhub",
+  "login": "pedromyoshimura@gmail.com",
+  "password": "RG@alp28"
 }
 
 ###
+GET http://127.0.0.1:8080/account/facebook HTTP/2
+Content-Type: application/json

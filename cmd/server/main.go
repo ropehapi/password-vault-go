@@ -28,8 +28,8 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	r.Post("/", accountController.Create)
-	//r.Get("/balance/{id}", accountController.Handle)
+	r.Post("/account", accountController.Create)
+	r.Get("/account/{name}", accountController.FindByName)
 
 	err = http.ListenAndServe(":8080", r)
 	if err != nil {

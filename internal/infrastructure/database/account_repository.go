@@ -32,7 +32,7 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 func (r *AccountRepository) FindByName(name string) (*entity.Account, error) {
 	var account entity.Account
 
-	err := r.DB.QueryRow("SELECT id, name, login, password, created_at, updated_at FROM account WHERE name = $1", name).Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
+	err := r.DB.QueryRow("SELECT id, name, login, password, created_at, updated_at FROM accounts WHERE name = ?", name).Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
 	if err != nil {
 		return nil, err
 	}
