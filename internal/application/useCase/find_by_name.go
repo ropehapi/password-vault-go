@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"github.com/ropehapi/password-vault-go/internal/domain/entity"
+	"github.com/ropehapi/password-vault-go/pkg/encrypter"
 )
 
 type FindAccountByNameInputDTO struct {
@@ -26,11 +27,12 @@ func (c *FindAccountByNameUseCase) Execute(input FindAccountByNameInputDTO) (Acc
 		return AccountOutputDTO{}, err
 	}
 
+	decryptedString := encrypter.Criptografia("DESCRIPTOGRAFAR", account.Password)
 	dto := AccountOutputDTO{
 		ID:        account.ID,
 		Name:      account.Name,
 		Login:     account.Login,
-		Password:  account.Password,
+		Password:  decryptedString,
 		CreatedAt: account.CreatedAt,
 		UpdatedAt: account.UpdatedAt,
 	}
