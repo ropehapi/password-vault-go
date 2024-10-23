@@ -29,13 +29,28 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 	return nil
 }
 
-func (r *AccountRepository) FindByName(name string) (*entity.Account, error) {
-	var account entity.Account
+func (r *AccountRepository) FindByName(name string) ([]*entity.Account, error) {
+	var accounts []*entity.Account
 
-	err := r.DB.QueryRow("SELECT id, name, login, password, created_at, updated_at FROM accounts WHERE name LIKE ?", "%"+name+"%").Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
+	rows, err := r.DB.Query("SELECT id, name, login, password, created_at, updated_at FROM accounts WHERE name LIKE ?", "%"+name+"%")
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
-	return &account, nil
+	for rows.Next() {
+		var account entity.Account
+		err := rows.Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		accounts = append(accounts, &account)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return accounts, nil
 }

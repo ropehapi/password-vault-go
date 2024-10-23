@@ -8,5 +8,5 @@ Content-Type: application/json
 }
 
 ###
-GET http://127.0.0.1:8080/account/pos HTTP/2
+GET http://127.0.0.1:8080/account/facebook HTTP/2
 Content-Type: application/json

@@ -21,21 +21,29 @@ func NewFindAccountByNameUseCase(
 	}
 }
 
-func (c *FindAccountByNameUseCase) Execute(input FindAccountByNameInputDTO) (AccountOutputDTO, error) {
-	account, err := c.AccountRepository.FindByName(input.Name)
+func (c *FindAccountByNameUseCase) Execute(input FindAccountByNameInputDTO) ([]AccountOutputDTO, error) {
+	accounts, err := c.AccountRepository.FindByName(input.Name)
 	if err != nil {
-		return AccountOutputDTO{}, err
+		return nil, err
 	}
 
-	decryptedString := encrypter.Criptografia("DESCRIPTOGRAFAR", account.Password)
-	dto := AccountOutputDTO{
-		ID:        account.ID,
-		Name:      account.Name,
-		Login:     account.Login,
-		Password:  decryptedString,
-		CreatedAt: account.CreatedAt,
-		UpdatedAt: account.UpdatedAt,
+	var accountDTOs []AccountOutputDTO
+
+	for _, account := range accounts {
+		decryptedString := encrypter.Criptografia("DESCRIPTOGRAFAR", account.Password)
+
+		dto := AccountOutputDTO{
+			ID:        account.ID,
+			Name:      account.Name,
+			Login:     account.Login,
+			Password:  decryptedString,
+			CreatedAt: account.CreatedAt,
+			UpdatedAt: account.UpdatedAt,
+		}
+
+		// Adiciona o DTO ao slice de resultados
+		accountDTOs = append(accountDTOs, dto)
 	}
 
-	return dto, nil
+	return accountDTOs, nil
 }
