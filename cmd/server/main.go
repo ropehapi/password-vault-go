@@ -20,7 +20,7 @@ func main() {
 	defer db.Close()
 
 	accountDB := database.NewAccountRepository(db)
-	accountController := controllers.NewCreateAccountController(accountDB)
+	accountController := controllers.NewAccountController(accountDB)
 
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
@@ -29,7 +29,7 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	r.Post("/account", accountController.Create)
-	r.Get("/account/{name}", accountController.FindByName)
+	r.Get("/account/{name}", accountController.GetByName)
 
 	err = http.ListenAndServe(":8080", r)
 	if err != nil {

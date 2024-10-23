@@ -29,7 +29,7 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 	return nil
 }
 
-func (r *AccountRepository) FindByName(name string) ([]*entity.Account, error) {
+func (r *AccountRepository) GetByName(name string) ([]*entity.Account, error) {
 	var accounts []*entity.Account
 
 	rows, err := r.DB.Query("SELECT id, name, login, password, created_at, updated_at FROM accounts WHERE name LIKE ?", "%"+name+"%")

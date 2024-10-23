@@ -5,24 +5,24 @@ import (
 	"github.com/ropehapi/password-vault-go/pkg/encrypter"
 )
 
-type FindAccountByNameInputDTO struct {
+type GetAccountByNameInputDTO struct {
 	Name string `json:"name"`
 }
 
-type FindAccountByNameUseCase struct {
+type GetAccountByNameUseCase struct {
 	AccountRepository entity.AccountRepositoryInterface
 }
 
-func NewFindAccountByNameUseCase(
+func NewGetAccountByNameUseCase(
 	AccountRepository entity.AccountRepositoryInterface,
-) *FindAccountByNameUseCase {
-	return &FindAccountByNameUseCase{
+) *GetAccountByNameUseCase {
+	return &GetAccountByNameUseCase{
 		AccountRepository: AccountRepository,
 	}
 }
 
-func (c *FindAccountByNameUseCase) Execute(input FindAccountByNameInputDTO) ([]AccountOutputDTO, error) {
-	accounts, err := c.AccountRepository.FindByName(input.Name)
+func (c *GetAccountByNameUseCase) Execute(input GetAccountByNameInputDTO) ([]AccountOutputDTO, error) {
+	accounts, err := c.AccountRepository.GetByName(input.Name)
 	if err != nil {
 		return nil, err
 	}

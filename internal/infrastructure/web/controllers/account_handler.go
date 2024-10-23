@@ -9,17 +9,17 @@ import (
 	"net/http"
 )
 
-type CreateAccountController struct {
+type AccountController struct {
 	AccountRepository entity.AccountRepositoryInterface
 }
 
-func NewCreateAccountController(accountRepository entity.AccountRepositoryInterface) *CreateAccountController {
-	return &CreateAccountController{
+func NewAccountController(accountRepository entity.AccountRepositoryInterface) *AccountController {
+	return &AccountController{
 		AccountRepository: accountRepository,
 	}
 }
 
-func (c *CreateAccountController) Create(w http.ResponseWriter, r *http.Request) {
+func (c *AccountController) Create(w http.ResponseWriter, r *http.Request) {
 	var dto usecase.CreateAccountInputDTO
 	err := json.NewDecoder(r.Body).Decode(&dto)
 	if err != nil {
@@ -40,12 +40,12 @@ func (c *CreateAccountController) Create(w http.ResponseWriter, r *http.Request)
 	return
 }
 
-func (c *CreateAccountController) FindByName(w http.ResponseWriter, r *http.Request) {
-	dto := usecase.FindAccountByNameInputDTO{
+func (c *AccountController) GetByName(w http.ResponseWriter, r *http.Request) {
+	dto := usecase.GetAccountByNameInputDTO{
 		Name: chi.URLParam(r, "name"),
 	}
 
-	findAccountByNameUseCase := usecase.NewFindAccountByNameUseCase(c.AccountRepository)
+	findAccountByNameUseCase := usecase.NewGetAccountByNameUseCase(c.AccountRepository)
 	output, err := findAccountByNameUseCase.Execute(dto)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
