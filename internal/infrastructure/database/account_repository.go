@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/ropehapi/password-vault-go/internal/domain/entity"
 )
 
@@ -87,9 +88,18 @@ func (r *AccountRepository) Delete(id int64) error {
 		return err
 	}
 
-	_, err = stmt.Exec(id)
+	result, err := stmt.Exec(id)
 	if err != nil {
 		return err
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("Nenhuma conta encontrada com o ID fornecido")
 	}
 
 	return nil
