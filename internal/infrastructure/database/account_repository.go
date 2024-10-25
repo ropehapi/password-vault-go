@@ -80,3 +80,17 @@ func (r *AccountRepository) GetAll() ([]*entity.Account, error) {
 
 	return accounts, nil
 }
+
+func (r *AccountRepository) Delete(id int64) error {
+	stmt, err := r.DB.Prepare("DELETE FROM accounts where id=?")
+	if err != nil {
+		return err
+	}
+
+	_, err = stmt.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
