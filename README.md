@@ -5,6 +5,7 @@
 ```
 
 ## Pendências
-- [ ] Melhorar para um pacote de criptografia que não seja caseiro
+- [x] Melhorar para um pacote de criptografia que não seja caseiro
+- [ ] Melhorar responses da controller
 - [ ] Implementar armazenamento de palavras chave
 - [ ] Implementar autenticação

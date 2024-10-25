@@ -2,9 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
+	"os"
+
 	//_ "github.com/mattn/go-sqlite3"
 	"github.com/ropehapi/password-vault-go/internal/infrastructure/database"
 	"github.com/ropehapi/password-vault-go/internal/infrastructure/web/controllers"
@@ -13,7 +17,12 @@ import (
 )
 
 func main() {
-	db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/password_vault?parseTime=true")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file:" + err.Error())
+	}
+
+	db, err := sql.Open(os.Getenv("DB_DRIVER"), fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME")))
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -26,7 +26,7 @@ func (c *GetAllAccountsUseCase) Execute() ([]AccountOutputDTO, error) {
 	var accountDTOs []AccountOutputDTO
 
 	for _, account := range accounts {
-		decryptedString, err := encrypter.Decrypt(account.Password, []byte("exemplo-chave-32"))
+		decryptedString, err := encrypter.Decrypt(account.Password)
 		if err != nil {
 			return nil, err
 		}

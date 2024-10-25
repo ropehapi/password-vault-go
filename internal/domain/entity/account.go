@@ -16,7 +16,7 @@ type Account struct {
 }
 
 func NewAccount(name, login, password string) (*Account, error) {
-	encrypytedPassword, err := encrypter.Crypt(password, []byte("exemplo-chave-32"))
+	encrypytedPassword, err := encrypter.Crypt(password)
 	if err != nil {
 		return nil, err
 	}

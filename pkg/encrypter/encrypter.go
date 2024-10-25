@@ -7,11 +7,12 @@ import (
 	"encoding/hex"
 	"errors"
 	"io"
+	"os"
 )
 
-func Crypt(texto string, chave []byte) (string, error) {
+func Crypt(texto string) (string, error) {
 	// Criar um bloco AES com a chave fornecida
-	bloco, err := aes.NewCipher(chave)
+	bloco, err := aes.NewCipher([]byte(os.Getenv("AES_CYPHERING_KEY")))
 	if err != nil {
 		return "", err
 	}
@@ -31,7 +32,7 @@ func Crypt(texto string, chave []byte) (string, error) {
 	return hex.EncodeToString(textoCriptografado), nil
 }
 
-func Decrypt(textoCriptografado string, chave []byte) (string, error) {
+func Decrypt(textoCriptografado string) (string, error) {
 	// Decodificar o texto criptografado do formato hexadecimal
 	dados, err := hex.DecodeString(textoCriptografado)
 	if err != nil {
@@ -39,7 +40,7 @@ func Decrypt(textoCriptografado string, chave []byte) (string, error) {
 	}
 
 	// Criar um bloco AES com a chave fornecida
-	bloco, err := aes.NewCipher(chave)
+	bloco, err := aes.NewCipher([]byte(os.Getenv("AES_CYPHERING_KEY")))
 	if err != nil {
 		return "", err
 	}
