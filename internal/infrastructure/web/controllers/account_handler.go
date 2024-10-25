@@ -57,3 +57,17 @@ func (c *AccountController) GetByName(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(output)
 	return
 }
+
+func (c *AccountController) GetAll(w http.ResponseWriter, r *http.Request) {
+	getAllAccountsUsecase := usecase.NewGetAllAccountsUseCase(c.AccountRepository)
+	output, err := getAllAccountsUsecase.Execute()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(output)
+	return
+}

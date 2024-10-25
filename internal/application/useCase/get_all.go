@@ -5,24 +5,20 @@ import (
 	"github.com/ropehapi/password-vault-go/pkg/encrypter"
 )
 
-type GetAccountByNameInputDTO struct {
-	Name string `json:"name"`
-}
-
-type GetAccountByNameUseCase struct {
+type GetAllAccountsUseCase struct {
 	AccountRepository entity.AccountRepositoryInterface
 }
 
-func NewGetAccountByNameUseCase(
+func NewGetAllAccountsUseCase(
 	AccountRepository entity.AccountRepositoryInterface,
-) *GetAccountByNameUseCase {
-	return &GetAccountByNameUseCase{
+) *GetAllAccountsUseCase {
+	return &GetAllAccountsUseCase{
 		AccountRepository: AccountRepository,
 	}
 }
 
-func (c *GetAccountByNameUseCase) Execute(input GetAccountByNameInputDTO) ([]AccountOutputDTO, error) {
-	accounts, err := c.AccountRepository.GetByName(input.Name)
+func (c *GetAllAccountsUseCase) Execute() ([]AccountOutputDTO, error) {
+	accounts, err := c.AccountRepository.GetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +40,6 @@ func (c *GetAccountByNameUseCase) Execute(input GetAccountByNameInputDTO) ([]Acc
 			UpdatedAt: account.UpdatedAt,
 		}
 
-		// Adiciona o DTO ao slice de resultados
 		accountDTOs = append(accountDTOs, dto)
 	}
 

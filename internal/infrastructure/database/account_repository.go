@@ -54,3 +54,29 @@ func (r *AccountRepository) GetByName(name string) ([]*entity.Account, error) {
 
 	return accounts, nil
 }
+
+func (r *AccountRepository) GetAll() ([]*entity.Account, error) {
+	var accounts []*entity.Account
+
+	rows, err := r.DB.Query("SELECT id, name, login, password, created_at, updated_at FROM accounts")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var account entity.Account
+		err := rows.Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+
+		accounts = append(accounts, &account)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return accounts, nil
+}

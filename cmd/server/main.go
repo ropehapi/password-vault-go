@@ -29,6 +29,7 @@ func main() {
 	r.Use(middleware.Recoverer)
 
 	r.Post("/account", accountController.Create)
+	r.Get("/account", accountController.GetAll)
 	r.Get("/account/{name}", accountController.GetByName)
 
 	err = http.ListenAndServe(":8080", r)

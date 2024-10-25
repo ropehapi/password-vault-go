@@ -16,14 +16,18 @@ type Account struct {
 }
 
 func NewAccount(name, login, password string) (*Account, error) {
-	encrypytedPassword := encrypter.Criptografia("CRIPTOGRAFAR", password)
+	encrypytedPassword, err := encrypter.Crypt(password, []byte("exemplo-chave-32"))
+	if err != nil {
+		return nil, err
+	}
+
 	account := &Account{
 		Name:     name,
 		Login:    login,
 		Password: encrypytedPassword,
 	}
 
-	err := account.IsValid()
+	err = account.IsValid()
 	if err != nil {
 		return nil, err
 	}
