@@ -5,4 +5,5 @@ type AccountRepositoryInterface interface {
 	GetByName(name string) ([]*Account, error)
 	GetAll() ([]*Account, error)
 	Delete(id int64) error
+	Update(id int64, account *Account) error
 }

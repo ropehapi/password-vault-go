@@ -6,6 +6,7 @@
 
 ## Pendências
 - [x] Melhorar para um pacote de criptografia que não seja caseiro
-- [ ] Melhorar responses da controller
+- [x] Melhorar responses da controller
+- [ ] Terminar CRUD de contas
 - [ ] Implementar armazenamento de palavras chave
 - [ ] Implementar autenticação

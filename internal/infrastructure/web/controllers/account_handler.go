@@ -177,3 +177,52 @@ func (c *AccountController) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func (c *AccountController) Update(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	idInt, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		response := APIResponse{
+			Message: "Erro ao atualizar conta: " + err.Error(),
+			Data:    nil,
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	var dto usecase.CreateAccountInputDTO
+	err = json.NewDecoder(r.Body).Decode(&dto)
+	if err != nil {
+		response := APIResponse{
+			Message: "Erro ao atualizar conta: " + err.Error(),
+			Data:    nil,
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	updateAccountUseCase := usecase.NewUpdateAccountUseCase(c.AccountRepository)
+	output, err := updateAccountUseCase.Execute(idInt, dto)
+	if err != nil {
+		response := APIResponse{
+			Message: "Erro ao atualizar conta: " + err.Error(),
+			Data:    nil,
+		}
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	response := APIResponse{
+		Message: "Conta atualizada com sucesso",
+		Data:    output,
+	}
+	w.WriteHeader(http.StatusCreated)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}

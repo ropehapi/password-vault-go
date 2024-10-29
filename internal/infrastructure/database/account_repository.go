@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/ropehapi/password-vault-go/internal/domain/entity"
+	"strconv"
 )
 
 type AccountRepository struct {
@@ -21,11 +22,18 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
-	_, err = stmt.Exec(account.Name, account.Login, account.Password)
+	result, err := stmt.Exec(account.Name, account.Login, account.Password)
 	if err != nil {
 		return err
 	}
+
+	id, err := result.LastInsertId()
+	if err != nil {
+		return err
+	}
+	account.ID = strconv.FormatInt(id, 10)
 
 	return nil
 }
@@ -87,6 +95,7 @@ func (r *AccountRepository) Delete(id int64) error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	result, err := stmt.Exec(id)
 	if err != nil {
@@ -101,6 +110,23 @@ func (r *AccountRepository) Delete(id int64) error {
 	if rowsAffected == 0 {
 		return fmt.Errorf("Nenhuma conta encontrada com o ID fornecido")
 	}
+
+	return nil
+}
+
+func (r *AccountRepository) Update(id int64, account *entity.Account) error {
+	stmt, err := r.DB.Prepare("UPDATE accounts SET name = ?, login = ?, password = ? WHERE id = ?")
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(account.Name, account.Login, account.Password, id)
+	if err != nil {
+		return err
+	}
+
+	account.ID = strconv.FormatInt(id, 10)
 
 	return nil
 }
