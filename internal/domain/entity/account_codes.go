@@ -2,6 +2,7 @@ package entity
 
 import (
 	"errors"
+	"github.com/ropehapi/password-vault-go/pkg/encrypter"
 	"time"
 )
 
@@ -14,12 +15,17 @@ type AccountCodes struct {
 }
 
 func NewAccountCodes(name, codes string) (*AccountCodes, error) {
-	accountCodes := &AccountCodes{
-		Name:  name,
-		Codes: codes,
+	encrypytedCodes, err := encrypter.Crypt(codes)
+	if err != nil {
+		return nil, err
 	}
 
-	err := accountCodes.IsValid()
+	accountCodes := &AccountCodes{
+		Name:  name,
+		Codes: encrypytedCodes,
+	}
+
+	err = accountCodes.IsValid()
 	if err != nil {
 		return nil, err
 	}

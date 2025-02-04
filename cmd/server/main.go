@@ -30,6 +30,8 @@ func main() {
 
 	accountDB := database.NewAccountRepository(db)
 	accountController := controllers.NewAccountController(accountDB)
+	accountCodesDB := database.NewAccountCodesRepository(db)
+	accountCodesController := controllers.NewAccountCodesController(accountCodesDB)
 
 	r := chi.NewRouter()
 	r.Use(middleware.RequestID)
@@ -42,6 +44,8 @@ func main() {
 	r.Get("/account/{name}", accountController.GetByName)
 	r.Delete("/account/{id}", accountController.Delete)
 	r.Put("/account/{id}", accountController.Update)
+
+	r.Post("/account-codes", accountCodesController.Create)
 
 	err = http.ListenAndServe(":8080", r)
 	if err != nil {

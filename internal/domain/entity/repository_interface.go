@@ -9,9 +9,9 @@ type AccountRepositoryInterface interface {
 }
 
 type AccountCodesRepositoryInterface interface {
-	Save(account *Account) error
-	GetByName(name string) ([]*Account, error)
-	GetAll() ([]*Account, error)
+	Save(account *AccountCodes) error
+	GetByName(name string) ([]*AccountCodes, error)
+	GetAll() ([]*AccountCodes, error)
 	Delete(id int64) error
-	Update(id int64, account *Account) error
+	Update(id int64, account *AccountCodes) error
 }
