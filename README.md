@@ -8,5 +8,5 @@
 - [x] Melhorar para um pacote de criptografia que não seja caseiro
 - [x] Melhorar responses da controller
 - [x] Terminar CRUD de contas
-- [ ] Implementar armazenamento de palavras chave
+- [X] Implementar armazenamento de palavras chave
 - [ ] Implementar autenticação
