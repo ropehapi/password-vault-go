@@ -67,7 +67,7 @@ func (r *AccountCodesRepository) GetByName(name string) ([]*entity.AccountCodes,
 func (r *AccountCodesRepository) GetAll() ([]*entity.AccountCodes, error) {
 	var accountsCodes []*entity.AccountCodes
 
-	rows, err := r.DB.Query("SELECT id, codes, created_at, updated_at FROM account_codes")
+	rows, err := r.DB.Query("SELECT id, name, codes, created_at, updated_at FROM account_codes")
 	if err != nil {
 		return nil, err
 	}

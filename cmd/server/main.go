@@ -46,6 +46,10 @@ func main() {
 	r.Put("/account/{id}", accountController.Update)
 
 	r.Post("/account-codes", accountCodesController.Create)
+	r.Get("/account-codes", accountCodesController.GetAll)
+	r.Get("/account-codes/{name}", accountCodesController.GetByName)
+	r.Delete("/account-codes/{id}", accountCodesController.Delete)
+	r.Put("/account-codes/{id}", accountCodesController.Update)
 
 	err = http.ListenAndServe(":8080", r)
 	if err != nil {
