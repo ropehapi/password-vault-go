@@ -1,5 +1,5 @@
 # Nome do comando de execução
-RUN_CMD = go run main.go
+RUN_CMD = go run $(SERVER_DIR)/main.go
 
 # Diretório do servidor
 SERVER_DIR = cmd/server
@@ -10,7 +10,7 @@ APP_NAME = password_vault
 # Regra padrão para rodar o servidor
 .PHONY: run
 run:
-	cd $(SERVER_DIR) && $(RUN_CMD)
+	$(RUN_CMD)
 
 commit:
 	@if [ -z "$(message)" ]; then \

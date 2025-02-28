@@ -6,7 +6,7 @@ require (
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-sql-driver/mysql v1.9.0
 	github.com/joho/godotenv v1.5.1
-	github.com/ropehapi/kaizen-auth-service v0.0.0-20250228020828-32a599602055
+	github.com/ropehapi/kaizen-auth-service v0.0.0-20250228025929-82ac18f337f7
 )
 
 require (
