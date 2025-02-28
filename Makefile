@@ -5,12 +5,19 @@ RUN_CMD = go run main.go
 SERVER_DIR = cmd/server
 
 # Nome do executável
-APP_NAME = password-vault
+APP_NAME = password_vault
 
 # Regra padrão para rodar o servidor
 .PHONY: run
 run:
 	cd $(SERVER_DIR) && $(RUN_CMD)
+
+commit:
+	@if [ -z "$(message)" ]; then \
+		echo "Erro: é necessário fornecer uma mensagem de commit."; \
+		exit 1; \
+	fi
+	@git add . && git commit -m "$(message)" && git push
 
 # Regra para limpar (não é obrigatória mas pode ser útil)
 .PHONY: clean

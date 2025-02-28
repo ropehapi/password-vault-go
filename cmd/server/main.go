@@ -10,6 +10,7 @@ import (
 	"os"
 
 	//_ "github.com/mattn/go-sqlite3"
+	"github.com/ropehapi/kaizen-auth-service/pkg/jwt"
 	"github.com/ropehapi/password-vault-go/internal/infrastructure/database"
 	"github.com/ropehapi/password-vault-go/internal/infrastructure/web/controllers"
 	"log"
@@ -38,6 +39,7 @@ func main() {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Use(jwt.ValidateToken)
 
 	r.Post("/account", accountController.Create)
 	r.Get("/account", accountController.GetAll)
@@ -51,7 +53,7 @@ func main() {
 	r.Delete("/account-codes/{id}", accountCodesController.Delete)
 	r.Put("/account-codes/{id}", accountCodesController.Update)
 
-	err = http.ListenAndServe(":8080", r)
+	err = http.ListenAndServe(":"+os.Getenv("PORT"), r)
 	if err != nil {
 		panic(err)
 	}
