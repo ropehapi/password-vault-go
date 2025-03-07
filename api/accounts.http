@@ -1,0 +1,35 @@
+POST http://127.0.0.1:8080/account HTTP/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2F0IjoxNzQxMzA5OTQ5LCJpZCI6Ijk4ZjdlMmE1LWRmYmMtNGExOS1hOTZjLTg3YzMxODFmM2E3MCIsInVzZXJuYW1lIjoicm9wZWhhcGkifQ.kLZqaS9khhRWAWeK-00zuR6vk6tKHKM53pN8CcA5PA4
+
+{
+  "name": "saipos",
+  "login": "pedrinhosilvayoshimura@gmail.com",
+  "password": "RG@alp28"
+}
+
+###
+PUT http://127.0.0.1:8080/account/1 HTTP/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2F0IjoxNzQxMzA5OTQ5LCJpZCI6Ijk4ZjdlMmE1LWRmYmMtNGExOS1hOTZjLTg3YzMxODFmM2E3MCIsInVzZXJuYW1lIjoicm9wZWhhcGkifQ.kLZqaS9khhRWAWeK-00zuR6vk6tKHKM53pN8CcA5PA4
+
+{
+  "name": "saipos",
+  "login": "pedrinhosilvayoshimura@gmail.com",
+  "password": "RG@alp28"
+}
+
+###
+DELETE http://127.0.0.1:8080/account/1 HTTP/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2F0IjoxNzQxMzA5OTQ5LCJpZCI6Ijk4ZjdlMmE1LWRmYmMtNGExOS1hOTZjLTg3YzMxODFmM2E3MCIsInVzZXJuYW1lIjoicm9wZWhhcGkifQ.kLZqaS9khhRWAWeK-00zuR6vk6tKHKM53pN8CcA5PA4
+
+###
+GET http://127.0.0.1:8080/account HTTP/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2F0IjoxNzQxMzA5OTQ5LCJpZCI6Ijk4ZjdlMmE1LWRmYmMtNGExOS1hOTZjLTg3YzMxODFmM2E3MCIsInVzZXJuYW1lIjoicm9wZWhhcGkifQ.kLZqaS9khhRWAWeK-00zuR6vk6tKHKM53pN8CcA5PA4
+
+###
+GET http://127.0.0.1:8080/account/saipos HTTP/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzX2F0IjoxNzQxMzA5OTQ5LCJpZCI6Ijk4ZjdlMmE1LWRmYmMtNGExOS1hOTZjLTg3YzMxODFmM2E3MCIsInVzZXJuYW1lIjoicm9wZWhhcGkifQ.kLZqaS9khhRWAWeK-00zuR6vk6tKHKM53pN8CcA5PA4
