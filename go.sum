@@ -12,3 +12,5 @@ github.com/joho/godotenv v1.5.1 h1:7eLL/+HRGLY0ldzfGMeQkb7vMd0as4CfYvUVzLqw0N0=
 github.com/joho/godotenv v1.5.1/go.mod h1:f4LDr5Voq0i2e/R5DDNOoa2zzDfwtkZa6DnEwAbqwq4=
 github.com/ropehapi/kaizen-auth-service v0.0.0-20250228025929-82ac18f337f7 h1:HeShNdgtuaK5a9+FwLWxWk8GoW1HMOZFeQvzNNCt9Os=
 github.com/ropehapi/kaizen-auth-service v0.0.0-20250228025929-82ac18f337f7/go.mod h1:XhRPtIw4ZHe4pZA6HsjxA+GF9DIViLbj+4128If5VwA=
+github.com/ropehapi/kaizen-auth-service v1.0.0 h1:ou41/OIRTb6khWglqTx7skgvx4YkPwht9SfeabXr8Pk=
+github.com/ropehapi/kaizen-auth-service v1.0.0/go.mod h1:XhRPtIw4ZHe4pZA6HsjxA+GF9DIViLbj+4128If5VwA=
