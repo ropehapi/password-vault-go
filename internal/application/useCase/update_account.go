@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"github.com/ropehapi/password-vault-go/internal/domain/entity"
+	"github.com/ropehapi/password-vault-go/pkg/encrypter"
 )
 
 type UpdateAccountUseCase struct {
@@ -17,9 +18,27 @@ func NewUpdateAccountUseCase(
 }
 
 func (c *UpdateAccountUseCase) Execute(id int64, input CreateAccountInputDTO) (AccountOutputDTO, error) {
-	account, err := entity.NewAccount(input.Name, input.Login, input.Password)
+	account, err := c.AccountRepository.GetById(id)
+	
 	if err != nil {
 		return AccountOutputDTO{}, err
+	}
+
+	if input.Name != "" {
+		account.Name = input.Name
+	}
+
+	if input.Login != "" {
+		account.Login = input.Login
+	}
+
+	if input.Password != "" {
+		encrypytedPassword, err := encrypter.Crypt(input.Password)
+		if err != nil {
+			return AccountOutputDTO{}, err
+		}
+
+		account.Password = encrypytedPassword
 	}
 
 	if err := c.AccountRepository.Update(id, account); err != nil {

@@ -64,6 +64,19 @@ func (r *AccountRepository) GetByName(name string) ([]*entity.Account, error) {
 	return accounts, nil
 }
 
+func (r *AccountRepository) GetById(id int64) (*entity.Account, error) {
+    var account entity.Account
+
+    row := r.DB.QueryRow("SELECT id, name, login, password, created_at, updated_at FROM accounts WHERE id = ?", id)
+
+    err := row.Scan(&account.ID, &account.Name, &account.Login, &account.Password, &account.CreatedAt, &account.UpdatedAt)
+    if err != nil {
+        return nil, err
+    }
+
+    return &account, nil
+}
+
 func (r *AccountRepository) GetAll() ([]*entity.Account, error) {
 	var accounts []*entity.Account
 

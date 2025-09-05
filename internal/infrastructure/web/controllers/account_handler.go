@@ -2,10 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
+	"strconv"
+
 	"github.com/go-chi/chi/v5"
 	usecase "github.com/ropehapi/password-vault-go/internal/application/useCase"
 	"github.com/ropehapi/password-vault-go/internal/domain/entity"
-	"strconv"
 
 	"net/http"
 )
@@ -207,6 +209,7 @@ func (c *AccountController) Update(w http.ResponseWriter, r *http.Request) {
 
 	updateAccountUseCase := usecase.NewUpdateAccountUseCase(c.AccountRepository)
 	output, err := updateAccountUseCase.Execute(idInt, dto)
+	fmt.Println(err)
 	if err != nil {
 		response := APIResponse{
 			Message: "Erro ao atualizar conta: " + err.Error(),
